@@ -1,0 +1,39 @@
+<launch>
+
+  <!-- ===================== -->
+  <!-- TurtleBot3 Model -->
+  <!-- ===================== -->
+  <arg name="model" default="burger"/>
+  <env name="TURTLEBOT3_MODEL" value="$(arg model)"/>
+
+  <!-- ===================== -->
+  <!-- TurtleBot3 Gazebo World -->
+  <!-- ===================== -->
+  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch"/>
+
+  <!-- ===================== -->
+  <!-- Constrained Reflector Detector -->
+  <!-- ===================== -->
+  <node pkg="docking_marker"
+        type="reflector_cluster_detector_constraint"
+        name="reflector_cluster_detector"
+        output="screen"/>
+
+  <!-- ===================== -->
+  <!-- Docking Controller -->
+  <!-- ===================== -->
+  <node pkg="docking_marker"
+        type="docking_controller"
+        name="docking_controller"
+        output="screen"/>
+<!-- 
+<include file="$(find turtlebot3_gazebo)/launch/turtlebot3_gazebo_rviz.launch"/> -->
+
+<arg name="map_file"
+       default="$(env HOME)/catkin_ws/src/docking_marker/logs/map.yaml"/>
+
+  <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+    <arg name="map_file" value="$(arg map_file)"/>
+  </include>
+
+</launch>

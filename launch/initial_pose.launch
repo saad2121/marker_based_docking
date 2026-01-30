@@ -1,0 +1,14 @@
+<launch>
+
+    <!-- Initial pose publisher -->
+    <node pkg="docking_marker"
+        type="initial_pose_publisher"
+        name="initial_pose_publisher"
+        output="screen">
+
+         <rosparam file="$(find docking_marker)/config/initial_pose.yaml" command="load" />
+
+    </node>
+ 
+
+</launch>

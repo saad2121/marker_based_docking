@@ -1,0 +1,27 @@
+frame_id: "map"
+
+point_a:
+  x: -0.5
+  y: -0.5
+  yaw: 0.0
+
+point_b:
+  x: 1.5
+  y: 0.5
+  yaw: 3.14
+
+point_c:
+  x: -0.3
+  y: 0.5
+  yaw: -1.57
+
+
+predock:
+  x: 1.9
+  y: -0.48
+  yaw: 0
+
+undock:
+  x: 1.5
+  y: -0.48
+  yaw: 0

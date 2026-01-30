@@ -1,0 +1,30 @@
+<launch>
+
+  <!-- ===================== -->
+  <!-- TurtleBot3 Model -->
+  <!-- ===================== -->
+  <arg name="model" default="burger"/>
+  <env name="TURTLEBOT3_MODEL" value="$(arg model)"/>
+
+  <!-- ===================== -->
+  <!-- Launch TurtleBot3 Gazebo World -->
+  <!-- ===================== -->
+  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch"/>
+
+  <!-- ===================== -->
+  <!-- Reflector Detector -->
+  <!-- ===================== -->
+  <node pkg="docking_marker"
+        type="reflector_cluster_detector"
+        name="reflector_cluster_detector"
+        output="screen"/>
+
+  <!-- ===================== -->
+  <!-- Docking Controller -->
+  <!-- ===================== -->
+  <node pkg="docking_marker"
+        type="docking_controller"
+        name="docking_controller"
+        output="screen"/>
+
+</launch>

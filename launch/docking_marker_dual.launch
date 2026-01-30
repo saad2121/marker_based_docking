@@ -1,0 +1,20 @@
+<launch>
+
+  <arg name="model" default="burger"/>
+  <env name="TURTLEBOT3_MODEL" value="$(arg model)"/>
+
+  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch"/>
+
+  <!-- Dual reflector detector -->
+  <node pkg="docking_marker"
+        type="reflector_cluster_detector_dual"
+        name="reflector_cluster_detector"
+        output="screen"/>
+
+  <!-- Existing controller -->
+  <node pkg="docking_marker"
+        type="docking_controller_dual"
+        name="docking_controller"
+        output="screen"/>
+
+</launch>

@@ -1,0 +1,29 @@
+# ================= Predock =================
+predock:
+  pos_x: 1.9
+  pos_y: -0.45
+  yaw: 0.0
+
+  pos_tol: 0.1
+  yaw_tol: 0.5235987756   # M_PI/6
+
+  dwell_time: 2.0         # seconds
+
+# ================= Dock =================
+dock:
+  offset_x: 0.04  # offset in x from centre point of line joining the 2 reflector 
+  pos_tol: 0.03
+  ang_tol: 0.008
+
+# ================= PID =================
+pid:
+  angular:
+    kp: 0.8
+    kd: 0.04
+  linear:
+    kp: 0.45
+    kd: 0.04
+
+# ================= Filter =================
+angle_filter:
+  window_size: 10

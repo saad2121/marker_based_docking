@@ -1,0 +1,67 @@
+<launch>
+
+<!-- Arguments -->
+
+<arg name="model" default="burger"/>
+<arg name="map_file" default="$(env HOME)/catkin_ws/src/docking_marker/logs/map.yaml"/>
+
+<!-- TurtleBot3 Model -->
+<env name="TURTLEBOT3_MODEL" value="$(arg model)"/>
+<!-- <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch"/> -->
+<!-- <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/> -->
+<arg name="x_pos" default="-2.0"/>
+<arg name="y_pos" default="-0.5"/>
+<arg name="z_pos" default="0.0"/>
+
+<include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <!-- <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/turtlebot3_world.world"/> -->
+        <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/turtlebot3_world_2_reflector.world"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="false"/>
+        <arg name="headless" value="true"/>
+        <arg name="debug" value="false"/>
+</include>
+
+<param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+<node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf"  args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+
+
+
+<!-- Navigation / AMCL -->
+<include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+        <arg name="map_file" value="$(arg map_file)"/>
+</include>
+
+<!-- Pos Initialisation -->
+<include file="$(find docking_marker)/launch/initial_pose.launch"/>
+
+<!-- Dual Reflector Detector -->
+<node pkg="docking_marker"
+        type="dual_reflector_detector"
+        name="dual_reflector_detector"
+        output="screen"/>
+
+<!-- Docking Controller -->
+<node pkg="docking_marker"
+        type="dual_reflector_docking_controller"
+        name="dual_reflector_docking_controller"
+        output="screen">
+
+        <rosparam file="$(find docking_marker)/config/dual_reflector_docking.yaml" command="load"/>
+</node>
+
+<!-- mission -->
+<include file="$(find docking_marker)/launch/mission.launch"/>
+
+<node pkg="docking_marker"
+        type="amcl_trail_publisher"
+        name="amcl_trail_publisher"
+        output="screen">
+        <param name="max_points" value="20"/>
+        <param name="global_frame" value="map"/>
+</node>
+
+
+</launch>

@@ -1,0 +1,47 @@
+<launch>
+
+  <!-- ===================== -->
+  <!-- Arguments -->
+  <!-- ===================== -->
+  <arg name="model" default="burger"/>
+  <arg name="map_file"
+       default="$(env HOME)/catkin_ws/src/docking_marker/logs/map.yaml"/>
+
+  <!-- ===================== -->
+  <!-- TurtleBot3 Model -->
+  <!-- ===================== -->
+  <env name="TURTLEBOT3_MODEL" value="$(arg model)"/>
+
+  <!-- ===================== -->
+  <!-- TurtleBot3 Gazebo World -->
+  <!-- ===================== -->
+  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch"/>
+
+  <!-- ===================== -->
+  <!-- Dual Reflector Detector -->
+  <!-- ===================== -->
+  <node pkg="docking_marker"
+        type="dual_reflector_detector"
+        name="dual_reflector_detector"
+        output="screen"/>
+
+  <!-- ===================== -->
+  <!-- Docking Controller -->
+  <!-- ===================== -->
+  <node pkg="docking_marker"
+        type="dual_reflector_docking_controller"
+        name="dual_reflector_docking_controller"
+        output="screen">
+
+    <rosparam file="$(find docking_marker)/config/dual_reflector_docking.yaml"
+              command="load"/>
+  </node>
+
+  <!-- ===================== -->
+  <!-- Navigation / AMCL -->
+  <!-- ===================== -->
+  <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+    <arg name="map_file" value="$(arg map_file)"/>
+  </include>
+
+</launch>

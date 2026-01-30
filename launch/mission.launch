@@ -1,0 +1,15 @@
+<launch>
+
+  <rosparam file="$(find docking_marker)/config/mission_points.yaml"
+            command="load"/>
+
+  <!-- <node pkg="docking_marker"
+        type="mission_controller"
+        name="mission_controller"
+        output="screen"/> -->
+
+  <node pkg="docking_marker"
+        type="mission_controller_retry_dock"
+        name="mission_controller_retry_dock"
+        output="screen"/>
+</launch>
