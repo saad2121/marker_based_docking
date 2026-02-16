@@ -267,7 +267,7 @@ $$
 The angular velocity command is computed as:
 
 $$
-\omega = K_p^{\theta} \, e_\theta + K_d^{\theta} \, \frac{d e_\theta}{dt}
+\omega = K_p^{\theta} \ e_\theta + K_d^{\theta} \ \frac{d e_\theta}{dt}
 $$
 
 ---
@@ -283,7 +283,7 @@ $$
 The linear velocity command is then computed as:
 
 $$
-v = K_p^{d} \, e_d + K_d^{d} \, \frac{d e_d}{dt}
+v = K_p^{d} \ e_d + K_d^{d} \ \frac{d e_d}{dt}
 $$
 
 ---
