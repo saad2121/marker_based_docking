@@ -34,26 +34,8 @@ The system detects a **pair of reflectors** from `LaserScan` data, computes the 
 ---
 
 ## System Architecture
-/scan (LaserScan
 
-↓
-
-Dual Reflector Detector
-
-↓
-
-/dock_target (distance, angle, valid)
-
-↓
-
-Docking Controller
-
-↓
-
-/cmd_vel
-
-
----
+<img width="2475" height="1163" alt="image" src="https://github.com/user-attachments/assets/94d3980a-17c7-4533-a7d2-25d0dcffff56" />
 
 ## Code Flow
 
@@ -128,11 +110,11 @@ State Encoding
 | 2     | DOCKING |
 | 3     | DOCKED  |
 
+---
+
 ## Mathematical Modeling 
 
 This section describes the mathematical formulation used for **dual reflector detection**, **target center computation**, and **control error calculation** for LiDAR-based docking.
-
----
 
 ### 1. Reflector Cluster Representation
 
